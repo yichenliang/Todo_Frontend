@@ -3,10 +3,14 @@
   <p>
     <strong>Username:</strong> {{info.username}}<br/>
     <strong>Roles:</strong> {{info.authorities}}<br />
-    <strong>Token:</strong> {{info.token}}.
+    <!-- <strong>Token:</strong> {{info.token}}. -->
+    <br/>
+    Welcome {{info.username}}. You can manage your todos <a routerLink="/user">here</a>
   </p>
+  <br/>
   <button class="btn btn-secondary" (click)="logout()">Logout</button>
 </div>
+
 
 <ng-template #loggedOut>
   Please login.

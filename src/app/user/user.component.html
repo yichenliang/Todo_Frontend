@@ -1,3 +1,37 @@
-<h4>Content from Server</h4>
+<h3>Content from Server</h3>
 {{board}}
 {{errorMessage}}
+
+<h3> My Todo's</h3>
+
+<div class="alert alert-success" *ngIf='message'>{{message}}</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>description</th>
+            <th>Target Date</th>
+            <th>is Completed?</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead> 
+        <tbody>
+          <!-- let, of are keywords. iterate each element as todo in array todos -->
+          <tr *ngFor="let todo of todos">
+            <td>{{todo.description}}</td>
+            <!-- pipe: | -->
+            <td>{{todo.targetDate | date}}</td>
+            <td>{{todo.done}}</td>
+            <td><button (click)="updateTodo(todo.id)" class="btn btn-success">Update</button></td>
+            <td><button (click)="deleteTodo(todo.id)" class="btn btn-warning">Delete</button></td>
+          </tr>
+        </tbody>
+      
+      </table>
+
+      <div class="row">
+        <button (click)="addTodo()" class="btn btn-success">Add</button>
+      </div>
+</div>
