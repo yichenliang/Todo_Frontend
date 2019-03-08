@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-// import { TodoDataService } from '../service/data/todo-data.service';  wait to be done
+import { TodoDataService } from '../services/data/todo-data.service';  
 
 export class Todo {
   constructor(
@@ -26,9 +26,11 @@ export class UserComponent implements OnInit {
   message : string
   todos: Todo[]
 
+  username: string
+
   constructor(
       private userService: UserService,
-      //private todoService: TodoDataService,
+      private todoService: TodoDataService,
       private router: Router
       ) { }
 
@@ -45,34 +47,34 @@ export class UserComponent implements OnInit {
     //this.refreshTodos();
   }
 
-  // refreshTodos(){
-  //   this.todoService.retrieveAllTodos('in28minutes').subscribe(
-  //     response => {
-  //       console.log(response);
-  //       this.todos = response;
-  //     }
-  //   )
-  // }
+  refreshTodos(){
+    this.todoService.retrieveAllTodos('in28minutes').subscribe(
+      response => {
+        console.log(response);
+        this.todos = response;
+      }
+    )
+  }
 
-  // deleteTodo(id){
-  //   console.log(`delete todo ${id}`)
-  //   this.todoService.deleteTodo('in28minutes', id).subscribe(
-  //     response => {
-  //       console.log(response);
-  //       this.message = `Delete of Todo ${id} Successful!`
-  //       this.refreshTodos();
-  //     }
+  deleteTodo(id){
+    console.log(`delete todo ${id}`)
+    this.todoService.deleteTodo('in28minutes', id).subscribe(
+      response => {
+        console.log(response);
+        this.message = `Delete of Todo ${id} Successful!`
+        this.refreshTodos();
+      }
 
-  //   )
-  // }
+    )
+  }
 
-  // updateTodo(id){
-  //   console.log(`update ${id}`)
-  //   this.router.navigate(['todos',id])
-  // }
+  updateTodo(id){
+    console.log(`update ${id}`)
+    this.router.navigate(['todos',id])
+  }
 
-  // addTodo(){
-  //   this.router.navigate(['todos',-1])
-  // }
+  addTodo(){
+    this.router.navigate(['user',-1])
+  }
 
 }
