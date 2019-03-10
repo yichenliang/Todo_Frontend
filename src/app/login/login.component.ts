@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
         this.reloadPage();
-        this.directWithUsername();
       },
       error => {
         console.log(error);
@@ -60,7 +59,4 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
 
-  directWithUsername(){
-    this.router.navigate(['user',this.form.username])
-  }
 }

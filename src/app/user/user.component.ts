@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { TodoDataService } from '../services/data/todo-data.service';  
+import { TokenStorageService } from '../auth/token-storage.service';
 
 export class Todo {
   constructor(
@@ -31,7 +32,8 @@ export class UserComponent implements OnInit {
   constructor(
       private userService: UserService,
       private todoService: TodoDataService,
-      private router: Router
+      private router: Router,
+      private token: TokenStorageService
       ) { }
 
   ngOnInit() {
@@ -43,12 +45,14 @@ export class UserComponent implements OnInit {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );
-      
-    //this.refreshTodos();
+    
+    this.username = this.token.getUsername();
+    console.log(this.username);
+    this.refreshTodos(this.username);
   }
 
-  refreshTodos(){
-    this.todoService.retrieveAllTodos('in28minutes').subscribe(
+  refreshTodos(username){
+    this.todoService.retrieveAllTodos(username).subscribe(
       response => {
         console.log(response);
         this.todos = response;
@@ -58,11 +62,11 @@ export class UserComponent implements OnInit {
 
   deleteTodo(id){
     console.log(`delete todo ${id}`)
-    this.todoService.deleteTodo('in28minutes', id).subscribe(
+    this.todoService.deleteTodo(this.username, id).subscribe(
       response => {
         console.log(response);
         this.message = `Delete of Todo ${id} Successful!`
-        this.refreshTodos();
+        this.refreshTodos(this.username);
       }
 
     )
@@ -70,7 +74,7 @@ export class UserComponent implements OnInit {
 
   updateTodo(id){
     console.log(`update ${id}`)
-    this.router.navigate(['todos',id])
+    this.router.navigate(['user',id])
   }
 
   addTodo(){

@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { PmComponent } from './pm/pm.component';
 import { AdminComponent } from './admin/admin.component';
+import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes = [
     {
@@ -14,7 +15,7 @@ const routes: Routes = [
         component: HomeComponent
     },
     {
-        path: 'user/:username',
+        path: 'user',
         component: UserComponent
     },
     {
@@ -24,6 +25,10 @@ const routes: Routes = [
     {
         path: 'admin',
         component: AdminComponent
+    },
+    {
+        path: 'user/:id',
+        component: TodoComponent
     },
     {
         path: 'auth/login',
